@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AFTERLIFE access denied</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05040a;
+    --panel:#0b0714;
+    --panel-edge:#1a1224;
+    --text:#dcd6e6;
+    --dim:#6f6680;
+    --accent:#ff3860;
+    --accent-rgb:255,56,96;
+    --font-display:'Share Tech Mono', monospace;
+    --font-body:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;height:100vh;
+    background:radial-gradient(ellipse at 50% -10%, rgba(var(--accent-rgb),0.15), transparent 60%), var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    overflow:hidden;
+  }
+  .code-bg{
+    position:fixed;inset:0;z-index:0;
+    display:flex;overflow:hidden;
+    filter:blur(0.6px);opacity:0.4;
+  }
+  .bg-col{flex:1;display:flex;flex-direction:column;gap:3px;padding:8px 4px;border-right:1px solid rgba(0,0,0,0.55);}
+  .bg-col:last-child{border-right:none;}
+  .bg-row{height:4px;border-radius:1px;background:var(--accent);}
+  .terminal{
+    position:relative;z-index:1;
+    width:100%;max-width:520px;
+    background:linear-gradient(180deg, var(--panel), #08050f);
+    border:1px solid var(--panel-edge);
+    border-radius:10px;
+    box-shadow:0 0 0 1px rgba(var(--accent-rgb),0.25), 0 0 40px rgba(var(--accent-rgb),0.2), 0 20px 60px rgba(0,0,0,0.6);
+    overflow:hidden;
+  }
+  .titlebar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;background:#0e0917;
+    border-bottom:1px solid var(--panel-edge);
+    font-size:12px;color:var(--dim);
+  }
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(var(--accent-rgb),0.9);}
+  .screen{padding:30px 26px 34px;}
+  h1{
+    font-family:var(--font-display);
+    color:var(--accent);
+    text-shadow:0 0 14px rgba(var(--accent-rgb),0.6);
+    font-size:22px;letter-spacing:0.05em;margin:0 0 14px;
+  }
+  p{font-size:13px;line-height:1.7;color:var(--dim);margin:0 0 6px;}
+  .code{color:var(--text);}
+</style>
+</head>
+<body>
+  <div class="code-bg" id="code-bg"></div>
+  <div class="terminal">
+    <div class="titlebar"><span class="dot"></span><span>afterlife@mainframe:~/colour_select</span></div>
+    <div class="screen">
+      <h1>ACCESS DENIED</h1>
+      {% if reason == 'expired' %}
+        <p><span class="code">ERROR 410</span> this link's ten minute window closed.</p>
+        <p>Go back to the server and use the button again for a new link.</p>
+      {% elif reason == 'used' %}
+        <p><span class="code">ERROR 410</span> this link is no longer active.</p>
+        <p>Each link works once. If you still need access, use the button in the server again.</p>
+      {% else %}
+        <p><span class="code">ERROR 404</span> no valid session for this address.</p>
+        <p>This terminal only responds to a private link sent from the AFTERLIFE Discord server.</p>
+      {% endif %}
+    </div>
+  </div>
+<script>
+  (function(){
+    const container = document.getElementById('code-bg');
+    const columns = window.innerWidth < 480 ? 9 : 16;
+    const frag = document.createDocumentFragment();
+    for(let c = 0; c < columns; c++){
+      const col = document.createElement('div');
+      col.className = 'bg-col';
+      for(let r = 0; r < 40; r++){
+        const row = document.createElement('div');
+        row.className = 'bg-row';
+        row.style.width = (35 + Math.random() * 60) + '%';
+        row.style.opacity = (0.10 + Math.random() * 0.5).toFixed(2);
+        col.appendChild(row);
+      }
+      frag.appendChild(col);
+    }
+    container.appendChild(frag);
+  })();
+</script>
+</body>
+</html>
